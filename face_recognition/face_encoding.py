@@ -10,7 +10,6 @@ encodings = {}
 
 for folder in folders:
     encodings[folder] = []
-    # encodings["faces"] = []
     path = os.path.join(image_folder, folder)
     files = os.listdir(path)
     for file in files:
