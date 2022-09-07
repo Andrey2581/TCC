@@ -11,10 +11,10 @@ capture = cv2.VideoCapture(0)
 # capture.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
 # capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
 
-my_photo = face_recognition.load_image_file(
-    'face_recognition\\images\\Nadson\\Nadson.jpg')
+# my_photo = face_recognition.load_image_file(
+#     'face_recognition\\images\\Nadson\\Nadson.jpg')
 # my_photo = cv2.imread('./images/Nadson/Nadson.jpg')
-my_face_encoding = face_recognition.face_encodings(my_photo)[0]
+# my_face_encoding = face_recognition.face_encodings(my_photo)[0]
 
 
 with open('file_encoding.json', 'r') as file:
@@ -35,7 +35,7 @@ while True:
     frame = cv2.flip(frame, 1)
     if ret:
         try:
-            cv2.imshow('frame', frame)
+            # cv2.imshow('frame', frame)
             face_locations = face_recognition.face_locations(frame)
             print(face_locations)
             frame_encoding = face_recognition.face_encodings(
@@ -52,7 +52,7 @@ while True:
             # Loop through faces in frame
             for (top, right, bottom, left), face_encoding in zip(face_locations, frame_encoding):
                 matches = face_recognition.compare_faces(
-                    known_faces_encodings, face_encoding, tolerance=0.7)
+                    known_faces_encodings, face_encoding, tolerance=0.55)
 
                 # Defaut face name
                 name = "Unkown Person"
@@ -63,15 +63,22 @@ while True:
                     name = known_faces_names[first_match_index]
                     found.append(name)
 
-                # Draw Box
-                draw.rectangle(((left, top), (right, bottom)),
-                               outline=(0, 0, 0))
-                # Draw Label
-                text_width, text_height = draw.textsize(name)
-                draw.rectangle(((left, bottom - text_height - 10),
-                               (right, bottom)), fill=(0, 0, 0), outline=(0, 0, 0))
-                draw.text((left + 6, bottom - text_height - 5),
-                          name, fill=(255, 255, 255, 255))
+                frame = cv2.rectangle(frame, (left, top),
+                                      (right, bottom - 15), (5, 200, 5))
+                frame = cv2.rectangle(
+                    frame, (left, bottom), (right, bottom - 15), (5, 200, 5), -1)
+                frame = cv2.putText(frame, name, (left + 2, bottom - 3),
+                                    cv2.FONT_HERSHEY_COMPLEX_SMALL, 0.6, (255, 255, 255, 255))
+
+                # # Draw Box
+                # draw.rectangle(((left, top), (right, bottom)),
+                #                outline=(0, 0, 0))
+                # # Draw Label
+                # text_width, text_height = draw.textsize(name)
+                # draw.rectangle(((left, bottom - text_height - 10),
+                #                (right, bottom)), fill=(0, 0, 0), outline=(0, 0, 0))
+                # draw.text((left + 6, bottom - text_height - 5),
+                #           name, fill=(255, 255, 255, 255))
 
             # Delete ImageDraw instance
             del draw
@@ -79,7 +86,7 @@ while True:
             print(found)
 
             # Display Image
-            # cv2.imshow('Video', pil_image)
+            cv2.imshow('Video', frame)
             # pil_image.show("Frame")
             if cv2.waitKey(5) == 27:
                 break

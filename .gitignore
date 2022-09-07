@@ -1,2 +1,4 @@
 face_recognition/images/
 *.json
+teste.py
+data/
