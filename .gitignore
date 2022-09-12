@@ -1,4 +1,7 @@
 face_recognition/images/
 *.json
-teste.py
+*teste.py
 data/
+*.xml
+mediapipe/
+open_cv/
