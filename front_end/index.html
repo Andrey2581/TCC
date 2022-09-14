@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Alunos</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: cadetblue;
+    }
+
+    form {
+        background-color: antiquewhite;
+        max-width: 500px;
+        width: 70%;
+        padding: 20px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    form h3 {
+        text-align: center;
+        color: blue;
+        font-family: 'Courier New', Courier, monospace;
+        margin-bottom: 30px;
+    }
+
+    form input[type=text],
+    form input[type=email] {
+        width: 100%;
+        height: 45px;
+        border: 1px solid #ccc;
+        padding-left: 15px;
+        margin: 3px;
+        border-radius: 15px;
+    }
+
+    form div input {
+        margin: 5px;
+        margin-top: 15px;
+        background: #ddd;
+    }
+
+    form input[type=submit] {
+        width: 100%;
+        height: 40px;
+        cursor: pointer;
+        background: rgb(67, 145, 148);
+        color: rgb(35, 8, 61);
+        border: 0;
+        border-radius: 20px;
+        transition: 400ms;
+        font-size: 18px;
+        margin-top: 15px;
+        border-radius: 20px;
+    }
+
+    form input[type=submit]:hover {
+        background: rgb(41, 89, 90);
+    }
+
+    form input[type=text]:focus {
+        outline: 0;
+    }
+
+    form input[type=email]:focus {
+        outline: 0;
+    }
+</style>
+
+<body>
+    <form id="form" name="cadastro" enctype="multipart/form-data">
+        <h3>Cadastro de Alunos</h3>
+        <input id="name" type="text" name="name" placeholder="Nome Completo" required>
+        <input id="ra" type="text" name="ra" placeholder="RA" required>
+        <input id="email" type="email" name="email" placeholder="E-mail" required>
+        <div>
+            <input id="input_img" type="file" name="upload" accept=".jpg, .jpeg, .png" required>
+        </div>
+        <input id="submit" type="submit" name="submit" value="Enviar">
+    </form>
+</body>
+
+<script>
+
+
+    const form = document.getElementById('form');
+    form.addEventListener('submit', teste2);
+
+    function teste2() {
+        const name = document.getElementById('name').value.trim();
+        const ra = document.getElementById('ra').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const input_img = document.getElementById('input_img').files[0];
+
+        const info = {
+            _id: ra,
+            name: name,
+            email: email
+        }
+
+        console.log(info);
+    }
+
+</script>
+
+</html>
