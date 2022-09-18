@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 import face_recognition
-from PIL import Image, ImageDraw
 import json
 import pymongo
 
@@ -15,7 +14,8 @@ known_faces_encodings = []
 known_faces_ra = []
 
 for document in data:
-    known_faces_ra.append(document["_id"])
+    first_name = str(document['name']).split(' ')[0]
+    known_faces_ra.append(f"{first_name} : {document['_id']}")
     known_faces_encodings.append(np.array(document["face_encoding"]))
 mongo.close()
 
@@ -46,35 +46,34 @@ while True:
                 name = "Unkown"
                 rect_color = (5, 5, 215)
 
-                # If match
+                # If match found
                 if True in matches:
                     first_match_index = matches.index(True)
                     name = known_faces_ra[first_match_index]
                     found.append(name)
                     rect_color = (5, 200, 5)
 
+                # Draw rectangle arround the face
                 frame = cv2.rectangle(frame, (left, top),
                                       (right, bottom - 15), rect_color)
+                # Draw rectangle to put the name
                 frame = cv2.rectangle(
                     frame, (left, bottom), (right, bottom - 15), rect_color, -1)
+                # Draw the name and id
                 frame = cv2.putText(frame, name, (left + 2, bottom - 3),
-                                    cv2.FONT_HERSHEY_COMPLEX_SMALL, 0.6, (255, 255, 255, 255))
+                                    cv2.FONT_HERSHEY_COMPLEX_SMALL, 0.5, (255, 255, 255, 255))
 
             print(found)
 
             # Display Image
             cv2.imshow('Video', frame)
-            # pil_image.show("Frame")
             if cv2.waitKey(5) == 27:
                 break
 
+        # Show error if it ever happens
         except Exception:
-            # print(f'There are {len(face_locations)} people in this frame')
             print(Exception)
-            # Mostrar o resultado
-            # cv2.imshow('Video', frame)
-            # Fechar o programa
 
-
+# Fechar o programa
 capture.release()
 cv2.destroyAllWindows()

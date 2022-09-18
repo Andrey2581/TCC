@@ -5,3 +5,6 @@ data/
 *.xml
 mediapipe/
 open_cv/
+*.jpeg
+*.png
+*.jpg
