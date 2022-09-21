@@ -80,39 +80,19 @@
     }
 </style>
 
+
 <body>
-    <form id="form" name="cadastro" enctype="multipart/form-data">
+    <form id="form" name="cadastro" enctype="multipart/form-data" action="/test" method="post">
         <h3>Cadastro de Alunos</h3>
         <input id="name" type="text" name="name" placeholder="Nome Completo" required>
         <input id="ra" type="text" name="ra" placeholder="RA" required>
         <input id="email" type="email" name="email" placeholder="E-mail" required>
         <div>
-            <input id="input_img" type="file" name="upload" accept=".jpg, .jpeg, .png" required>
+            <input id="input_img" type="file" name="file" accept=".jpg, .jpeg, .png" required>
         </div>
         <input id="submit" type="submit" name="submit" value="Enviar">
     </form>
+
 </body>
-
-<script>
-    const form = document.getElementById('form');
-    form.addEventListener('submit', teste2);
-
-    function teste2() {
-        const name = document.getElementById('name').value.trim();
-        const ra = document.getElementById('ra').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const input_img = document.getElementById('input_img').files[0];
-
-        const info = {
-            _id: ra,
-            name: name,
-            email: email,
-            face_encoding: []
-        }
-
-        console.log(info);
-    }
-
-</script>
 
 </html>
