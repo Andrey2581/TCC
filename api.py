@@ -14,15 +14,11 @@ templates = Jinja2Templates(directory='template')
 app = FastAPI()
 
 # Rota que contém o formulario
-
-
 @app.get('/', response_class=HTMLResponse)
 def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 # Rota para envio dos dados para o banco
-
-
 @app.post('/upload')
 async def upload(name: str = Form(...), ra: str = Form(...), email: str = Form(...), file: UploadFile = File(...)):
     # Recebedo dados do formulario
